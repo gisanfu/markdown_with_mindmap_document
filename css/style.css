@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+/* Code Samples */
+pre {
+ white-space: pre-wrap;
+ white-space: -moz-pre-wrap;
+ white-space: -o-pre-wrap;
+ background: #faf8f0;
+}
+
+code {
+ display: block;
+ padding: 0.5em 1em;
+ border: 1px solid #bebab0;
+}
+
+/*
+h1 {
+	font-family: Arial Black, serif ;
+	font-weight : normal;
+	text-align :center
+}
+
+h2 {
+	font-family: Times New Roman, serif ;
+	font-size : 16px;
+	font-weight : normal;
+	color :#FF0000;
+	background :#FFFF00
+}
+	*/

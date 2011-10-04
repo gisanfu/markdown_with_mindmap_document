@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>線上編輯文件</title>
+<link href="css/markdown.css" media="all" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+<!-- markItUp! -->
+<script type="text/javascript" src="markitup/jquery.markitup.js"></script>
+<script type="text/javascript" src="markitup/sets/default/set.js"></script>
+<link rel="stylesheet" type="text/css" href="markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="markitup/sets/default/style.css" />
+</head>
+<body>
+<a href="/">■ 觀看前台結果</a>
+<br />
+<a href="/upload">■ 上傳檔案</a>
+<br />
+<br />
+<form method="post" action="writetitle.php" name="formtitle">
+	編輯標題<br />
+	<input type="text" id="data_title" name="title" size="50" />
+	<input type="submit" value="儲存" />
+</form>
+<hr />
+<form method="post" action="writefile.php" name="formdata">
+	編輯HTML文件
+	<textarea id="data_markdown" name="data" class="need_markdown" cols="80" rows="20" style="height: 700px;">
+	</textarea>
+	<input type="submit" value="儲存文字檔" />
+</form>
+<hr />
+<form method="post" action="writemind.php" name="formmind">
+	編輯心智圖文件<br />
+	*使用這裡來編輯，將會覆蓋mm檔，會經過2次的轉檔<br />
+	*使用(-)來代表分層，以下是範例<br />
+	root<br />
+	-aaa<br />
+	--aaa_1<br />
+	---aaa_1_1<br />
+	-bbb<br />
+	<textarea id="data_mind" name="mind" cols="80" rows="20">
+	</textarea>
+	<br />
+	<input type="submit" value="儲存心智圖來源文字檔，以及匯出心智圖到前台" />
+</form>
+<hr />
+<form method="post" action="writemind.php" name="formmind">
+	編輯心智圖文件(資料來自於mm轉檔過來的)<br />
+	<textarea id="data_mind_from_mm" name="mind" cols="80" rows="20">
+	</textarea>
+	<br />
+	<input type="submit" value="儲存以及匯出心智圖" />
+</form>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.get('readtitle.php', function(data){
+		$('#data_title').attr('value', data);
+	});
+	$.get('readmarkdown_source.php', function(data){
+		$('#data_markdown').html(data);
+		$('.need_markdown').markItUp(myMarkdownSettings);
+	});
+	$.get('readmind.php', function(data){
+		$('#data_mind').html(data);
+	});
+	$.get('readmind_from_mm.php', function(data){
+		$('#data_mind_from_mm').html(data);
+	});
+});
+</script>
+</body>
+</html>

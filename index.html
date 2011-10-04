@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>線上文件</title>
+<link href="css/markdown.css" media="all" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="freemind/flashobject.js"></script>
+<script language="javascript">
+function giveFocus() 
+    { 
+      document.visorFreeMind.focus();  
+    }
+</script>
+<style type="text/css">
+#flashcontent {
+	/*height: 100%;*/
+	height: 700px;
+}
+</style>
+</head>
+<body>
+<img src="http://www.sjcorp.com.tw/images/logo-trans23.png" />
+<br />
+<div class="need_markdown">
+</div>
+<!--
+<textarea class="need_markdown">
+</textarea>
+-->
+
+<!-- freemind的flash版 -->
+<div id="flashcontent" onmouseover="giveFocus();">
+	 Flash plugin or Javascript are turned off.
+	 Activate both  and reload to view the mindmap
+</div>
+<br />
+
+<!-- freemind的javalet版 -->
+<APPLET CODE="freemind.main.FreeMindApplet.class" ARCHIVE="freemind/freemindbrowser.jar" WIDTH="800" HEIGHT="800">
+<PARAM NAME="browsemode_initial_map" VALUE="./other_files/mind.mm"/>
+<PARAM NAME="selection_method" VALUE="delayed"/>
+<PARAM NAME="type" VALUE="application/x-java-applet;version=1.4"/>
+<PARAM NAME="scriptable" VALUE="false"/>
+<PARAM NAME="modes" VALUE="freemind.modes.browsemode.BrowseMode"/>
+<PARAM NAME="initial_mode" VALUE="Browse"/>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$.get('readmarkdown_html.php', function(data){
+		$('.need_markdown').html(data);
+		//$.getScript('showdown.js', function(data, textStatus){
+		//});
+		//$.getScript('test.js', function(data, textStatus){
+		//});
+	});
+	$.get('readtitle.php', function(data){
+		document.title = data;
+	});
+});
+</script>
+
+<script type="text/javascript">
+	// <![CDATA[
+	// for allowing using http://.....?mindmap.mm mode
+	function getMap(map){
+	  var result=map;
+	  var loc=document.location+'';
+	  if(loc.indexOf(".mm")>0 && loc.indexOf("?")>0){
+		result=loc.substring(loc.indexOf("?")+1);
+	  }
+	  return result;
+	}
+	var fo = new FlashObject("freemind/visorFreemind.swf", "visorFreeMind", "800px", "100%", 6, "#9999ff");
+	fo.addParam("quality", "high");
+	fo.addParam("bgcolor", "#a0a0f0");
+	//fo.addParam("bgcolor", "#e9e9e9");
+	fo.addVariable("openUrl", "_blank");
+	fo.addVariable("startCollapsedToLevel","2");
+	fo.addVariable("maxNodeWidth","200");
+	//
+	fo.addVariable("mainNodeShape","elipse");
+	fo.addVariable("justMap","false");
+	fo.addVariable("initLoadFile",getMap("other_files/mind.mm"));
+	fo.addVariable("defaultToolTipWordWrap",200);
+	//fo.addVariable("offsetX","left");
+	//fo.addVariable("offsetY","top");
+	fo.addVariable("buttonsPos","top");
+	fo.addVariable("min_alpha_buttons",20);
+	fo.addVariable("max_alpha_buttons",100);
+	fo.addVariable("scaleTooltips","false");
+	
+	fo.write("flashcontent");
+	// ]]>
+</script>
+</body>
+</html>
